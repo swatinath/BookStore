@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+|| Book Details
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    {% if book %}
+        <div class="row">
+            <div class="col-md-6 p-2">
+                <img src="{{book.image.url}}" class="w-100">
+            </div>
+            <div class="col-md-6">
+                <h4 class="display-4">{{book.title}}</h4>
+                <p><i class="fa-solid fa-book"></i> Genre: {{book.category}}</p>
+                <p><i class="fa-solid fa-feather"></i> Author: {{book.author}}</p>
+                <p><i class="fa-solid fa-print"></i> Publisher: {{book.publisher}}</p>
+                <p><i class="fa-solid fa-calendar-week"></i> Publication Year: {{book.publication_year}}</p>
+                <p><strong> Price: {{book.price}}</strong></p>
+                <p class="lead" style="text-align: justify">{{book.description}}</p>
+            </div>
+        </div>
+    {% else %}
+    <h4 class="my-3 text-center text-danger">No Such Book Found</h4>
+    {% endif %}
+</div>
+{% endblock content %}
