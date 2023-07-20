@@ -30,18 +30,20 @@
                 <a class="nav-link active" aria-current="page" href="{% url 'all_books' %}">Books</a>
               </li>
               {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'cart' %}">Cart</a>
+              </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Welcome, {{user.first_name}}
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Profile</a></li>
+                  <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
                   <li><a class="dropdown-item" href="#">Orders</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="{% url 'signout' %}">Log out</a></li>
                 </ul>
               </li>
-      
               {% else %}
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="{% url 'signup' %}">Sign Up</a>

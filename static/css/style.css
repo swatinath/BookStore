@@ -8,3 +8,9 @@
 .success{
     color: green;
 }
+#quantity{
+    border: 1px solid gray;
+    text-align: center;
+    outline: none;
+    width: 50px;
+}

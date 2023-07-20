@@ -1,9 +1,12 @@
 from django.urls import path
 
-from book.views import all_books, book_details, category_books
+from book.views import all_books, book_details, category_books, add_to_cart, cart, remove_from_cart
 
 urlpatterns = [
     path("", all_books, name="all_books"),
     path("<int:id>/", book_details, name="book_details"),
-    path("category/<int:cid>/", category_books, name="book_category"),    
+    path("category/<int:cid>/", category_books, name="book_category"),
+    path("add_to_cart/", add_to_cart, name="add_to_cart"),    
+    path("cart/", cart, name="cart"),    
+    path("remove_from_cart/<int:id>/", remove_from_cart, name="remove_from_cart"),    
 ]
