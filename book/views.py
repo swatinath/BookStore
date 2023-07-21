@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from book.models import Book, Category
+from book.models import Book, Category, Order
+from user.models import Address
 # Create your views here.
 
 def all_books(request):
@@ -61,6 +62,40 @@ def remove_from_cart(request, id):
     del cart_items[str(id)]
     request.session['cart_items'] = cart_items
     return redirect("cart")
+
+def check_out(request):
+    addresses = Address.objects.filter(user=request.user)
+    cart_details, total_price = get_cart_details(request)
+    context = {
+        "addresses" : addresses,
+        "books" : cart_details,
+        "total_price" : total_price
+    }
+    return render(request, 'book/check_out.html', context)
+
+def place_order(request):
+    if request.method == "POST":
+        user = request.user
+        address = request.POST.get("address")
+        address = Address.objects.get(id=address)
+        payment_mode = request.POST.get("payment_mode")
+        cart_details, total_price = get_cart_details(request)
+        orders = []
+        for book in cart_details:
+            order = Order(
+                book = Book.objects.get(id=book['id']),
+                user = user,
+                address = address,
+                quantity = book['quantity'], #custom dictionary 
+                price = book['price'],
+                payment_method = payment_mode
+            )
+            orders.append(order)
+        Order.objects.bulk_create(orders)
+        request.session['cart_items'] = {}
+        return redirect('all_books')
+        
+        
 
 def get_cart_details(request):
     total_price = 0

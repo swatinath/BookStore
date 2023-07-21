@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.cache import never_cache
 from django.contrib.auth.decorators import login_required
+from user.models import Address
 # Create your views here.
 
 def signup(request):
@@ -71,3 +72,30 @@ def signout(request):
 @login_required(login_url="/user/signin")
 def profile(request):
     return render(request, 'user/profile.html')
+
+def add_address(request):
+    if request.method == "POST":
+        address_line_one = request.POST.get('address_line_one')
+        address_line_two = request.POST.get('address_line_two')
+        locality = request.POST.get('locality')
+        landmark = request.POST.get('landmark')
+        city = request.POST.get('city')
+        state = request.POST.get('state')
+        country = request.POST.get('country')
+        zip = request.POST.get('zip')
+        mobile = request.POST.get('mobile')
+        
+        address = Address(
+            user = request.user,
+            address_line_one = address_line_one,
+            address_line_two = address_line_two,
+            locality = locality,
+            landmark = landmark,
+            city = city,
+            state = state,
+            country = country,
+            zip = zip,
+            mobile = mobile
+        )
+        address.save()
+    return redirect('check_out')
