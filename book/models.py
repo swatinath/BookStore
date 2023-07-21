@@ -21,8 +21,8 @@ class Book(models.Model):
     is_available = models.BooleanField(default=True)
     image = models.ImageField(upload_to="book_images")
     
-    # def __str__(self):
-        # return self.title   #used to display only title of the book
+    def __str__(self):
+        return self.title   #used to display only title of the book
         
 class Order(models.Model):
     STATUS_OPTION = [

@@ -1,6 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core.mail import send_mail
+from django.conf import settings
 from book.models import Book, Category, Order
 from user.models import Address
+
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from datetime import date, timedelta
+
 # Create your views here.
 
 def all_books(request):
@@ -92,10 +99,34 @@ def place_order(request):
             )
             orders.append(order)
         Order.objects.bulk_create(orders)
+        
+        mail_context = {
+            "username" : request.user.first_name+" "+request.user.last_name,
+            "books" : cart_details,
+            "address" : address,
+            "delivery_date" : date.today() + timedelta(days=7),
+            "total_price" : total_price
+        }
+        subject = "Order is placed successfully"
+        # body = f"Your Order is placed successfully. Amount {total_price}. Delivery Address: {address}"
+        
+        html_message = render_to_string('book/mail_template.html',mail_context)
+        plain_message = strip_tags(html_message)
+        to = [request.user.email]
+        from_email = settings.EMAIL_HOST_USER 
+        # send_mail(subject=subject, message=body, from_email=from_email, recipient_list=to,fail_silently=False)
+        send_mail(subject=subject, message=plain_message, from_email=from_email, recipient_list=to,fail_silently=False, html_message=html_message)
+        
         request.session['cart_items'] = {}
-        return redirect('all_books')
+        return redirect('orders')
         
-        
+def orders(request):
+    orders = Order.objects.filter(user=request.user).order_by('-id')
+    context = {
+        "orders" : orders
+    }        
+    return render(request, 'book/orders.html', context)
+
 
 def get_cart_details(request):
     total_price = 0
