@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.mail import send_mail
 from django.conf import settings
-from book.models import Book, Category, Order
+from book.models import Book, Category, Order, Feedback
 from user.models import Address
 
 from django.template.loader import render_to_string
@@ -23,13 +23,15 @@ def all_books(request):
 def book_details(request, id):
     #book = Book.objects.get(id=id)
     book = get_object_or_404(Book, id=id)
+    feedbacks = Feedback.objects.filter(book=book)
     quantity = 1
     if request.session.get('cart_items'):
         if request.session.get('cart_items').get(str(id)):
             quantity = request.session.get('cart_items')[str(id)]
     context = {
         "book" : book,
-        "quantity" : quantity
+        "quantity" : quantity,
+        "feedbacks" : feedbacks,
     }
     return render(request, "book/book.html", context)
 
@@ -127,6 +129,27 @@ def orders(request):
     }        
     return render(request, 'book/orders.html', context)
 
+def add_feedback(request):
+    if request.method == "POST":
+        user = request.user
+        book_id = request.POST.get("book_id")
+        book = Book.objects.get(id=book_id)
+        rating = request.POST.get("rating")
+        comment = request.POST.get("comment")
+        feedback = None
+        try:
+            feedback = Feedback.objects.get(user=user, book=book)
+        except:
+            print("Feedback not available")
+        
+        if feedback is None:
+            feedback = Feedback()
+            feedback.user = user
+            feedback.book = book
+        feedback.rating = rating
+        feedback.comment = comment
+        feedback.save()
+        return redirect('orders')
 
 def get_cart_details(request):
     total_price = 0

@@ -49,3 +49,12 @@ class Order(models.Model):
     
     def __str__(self):
         return self.user.first_name+" "+self.book.title
+    
+class Feedback(models.Model):
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    book = models.ForeignKey(Book, on_delete=models.DO_NOTHING)
+    rating = models.IntegerField()
+    comment = models.TextField()
+    
+    def __str__(self):
+        return self.book.title+" - "+self.comment

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from book.models import Category, Book, Order
+from book.models import Category, Book, Order, Feedback
 
 # Register your models here.
 
@@ -17,5 +17,6 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ('status',)    
     
 admin.site.register(Category)
+admin.site.register(Feedback)
 admin.site.register(Book, BookAdmin)  #output as defined by BookAdmin
 admin.site.register(Order, OrderAdmin)  
