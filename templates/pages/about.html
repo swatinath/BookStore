@@ -5,40 +5,26 @@
 {% endblock title %}
 
 {% block content %}
-<h1>About us template</h1>
-    <h2>{{name}} is {{age}} years old</h2>
-    {% comment %}  {% endcomment %}
-    {#  If statement  #}
-    {% if num1 > num2 %}
-        <h2>{{num1}} is greater</h2>
-    {% else %}
-        <h2>{{num1}} is greater</h2>
-    {% endif %}
-    {#  declare a variable  #}
-    {% with x=5  %}
-            <h2>{{x}}</h2>
-    {% endwith %}
-    {#  for loop  #}
-    <ul>
-        {% for i in nums %}
-        <li>{{i}}</li>
-        {% endfor %}
-    </ul>
-    <table border="1">
-        <tr><th> Roll </th><th> Name </th></tr>
-        {% for k,v in students.items %}
-        <tr><td> {{k}} </td><td> {{v}} </td></tr>
-    
-    {% endfor %}
-    </table>
-    <table>
-        <tr><th>Roll</th><th>Name</th><th>1st sem</th><th>2nd sem</th><th>3rd sem</th><th>4th sem</th></tr>
-        {% for k,v in result.items %}
-        <tr><td>{{k}}</td><td>{{v.name}}</td>
-        {% for c in v.cgpa %}
-                <td>{{c}}</td>
-        {% endfor %}
-        </tr>
-        {% endfor %}
-    </table>
+<div>
+    <div class="row">
+        <img src="static/image/blue-aesthetic-background.jpg" alt="" class="img-fluid">
+    </div>
+</div>
+<div>
+    <div class="row my-5 py-3">
+            <p class="lead">Dear readers, <br>
+                We offer a huge collection of books from diverse categories of Fiction, Non-fiction, Biographies, History, Religion, Self-Help, etc. <br>We also offer a collection of Investments and Management, Computers, Engineering, Medical, College and School text reference books. <br>
+                
+                We strive for customer satisfaction by offering a user-friendly search engine, efficient payment options and seamless delivery systems. Apart from all this, we also provide great deals and discounts on our products. <br>
+                
+                All the Publishers, Distributors and Authors around the country are welcome to partner with us and grow the Bookswagon family. We would like to thank our customers for shopping with us. You can write to us on our e-mail id to share any suggestions or feedback you might have regarding our website or services. <br> </p>
+        
+    </div>
+</div>
+<div class="bg-dark text-light my-3">
+    <div class="row">
+            <p class="lead my-5 fw-normal">Find all your favourite books one tap away. We deliver across the country so that you can enjoy reading effortlessly.</p>
+            <img src="static/image/shipping.jpg" alt="" class="img-fluid w-50 ms-auto me-auto my-3"> 
+    </div>
+</div>
 {% endblock content %}
