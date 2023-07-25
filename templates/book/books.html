@@ -13,7 +13,7 @@
         <div class="container my-5">
             {%if books%}
             <div class="row">
-                {% for book in books %}
+                {% for book in page_obj %}
                 <div class="col-sm-2">
                     <div class="card border-0 m-1">
                         <img src="{{book.image.url}}" class="card-img-top" style="height: 200px;">
@@ -30,6 +30,23 @@
             {% else %}
             <h3 class="text center my-3">No books available</h3>
             {% endif %}
+            <div class="mt-5">
+                {% if page_obj.has_other_pages %}
+                <nav aria-label="Page navigation conatiner"></nav>
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+                    {% endif %}
+                    {% if page_obj.has_next %}
+                    <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+                {% endif %}
+                </ul>
+                </nav>
+                </div>
+                {% endif %}
+            </div>
+                
+            
         </div>
     </div>
 </div>

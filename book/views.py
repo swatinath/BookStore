@@ -7,16 +7,28 @@ from user.models import Address
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from datetime import date, timedelta
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 # Create your views here.
 
 def all_books(request):
     books = Book.objects.all()
+    paginator = Paginator(books, 12)  # 18 books in each page
+    page_number = request.GET.get("page")
+    try:
+        page_obj = paginator.get_page(page_number)
+    except PageNotAnInteger:
+            # If page is not an integer deliver the first page
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range deliver last page of results
+        page_obj = paginator.page(paginator.num_pages)    
     categories = Category.objects.all().order_by('category')
     #print(books.query)
     context = {
         "books" : books,
         "categories" : categories,
+        "page_obj" : page_obj,
     }
     return render(request, "book/books.html", context)
 
