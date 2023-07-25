@@ -62,8 +62,38 @@
     {% endblock content %}
 
     <footer class="bg-light py-3">
-        &copy; 2023 BookStore. All Rights Reserved
-        
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 text-center"><p class="text-primary">Company</p>
+            <p>About Us <br> Blog <br> Career <br> Contact Us</p>
+          </div>
+          <div class="col-md-4 text-center"><p class="text-primary">Policies</p>
+            <p>Privacy Policies <br>Terms of Use <br>Secure Shopping <br>Copyright Policies</p>
+          </div>
+          <div class="col-md-4 text-center"><p class="text-primary">Help</p>
+          <p>Payment <br>Shipping <br>Return <br> FAQ</p>
+          </div>
+        </div>
+      </div>
+      
+      <ul class="list-unstyled list-inline text-center">
+        <li class="list-inline-item">
+          <img src="https://d2g9wbak88g7ch.cloudfront.net/staticimages/facebook.png" alt="Facebook" width="32px" height="32px">
+        </li>
+        <li class="list-inline-item">
+          <img src="https://d2g9wbak88g7ch.cloudfront.net/staticimages/linkedin.png" alt="Linkedin" width="32px" height="32px">
+        </li>
+        <li class="list-inline-item">
+          <img src="https://d2g9wbak88g7ch.cloudfront.net/staticimages/youtube.png" alt="Youtube" width="32px" height="32px">
+        </li>
+        <li class="list-inline-item">
+          <img src="https://d2g9wbak88g7ch.cloudfront.net/staticimages/pinterest.png" alt="Pinterest" width="32px" height="32px">
+        </li>
+        <li class="list-inline-item">
+          <img src="https://d2g9wbak88g7ch.cloudfront.net/staticimages/instagram.png" alt="Instagram" width="32px" height="32px">
+        </li>
+      </ul>
+      <p class="text-center text-secondary"> &copy; 2023 BookStore. All Rights Reserved</p>
     </footer>
     <script src="{% static 'bootstrap/bootstrap.bundle.min.js' %}"></script>
     {% block extrajs %}{% endblock extrajs %}
