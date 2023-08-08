@@ -26,9 +26,8 @@ def all_books(request):
     categories = Category.objects.all().order_by('category')
     #print(books.query)
     context = {
-        "books" : books,
+        "books" : page_obj,
         "categories" : categories,
-        "page_obj" : page_obj,
     }
     return render(request, "book/books.html", context)
 
@@ -50,7 +49,7 @@ def book_details(request, id):
 def category_books(request, cid):
     books = Book.objects.filter(category=cid)
     categories = Category.objects.all().order_by('category')
-    #print(books.query)
+    # print(books.query)
     context = {
         "books" : books,
         "categories" : categories,

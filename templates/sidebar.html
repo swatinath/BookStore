@@ -1,20 +1,33 @@
-<button class="btn btn-outline-dark d-block d-md-none" onclick="toggle()">
-    <i class="fa-solid fa-layer-group"></i>
+<button class="btn btn-outline-primary d-block d-md-none my-2" onclick="toggle()">
+    <i class="fa-solid fa-arrow-down-wide-short"></i>
 </button>
-<div id="sidebar" class="h-100 bg-light d-none d-md-block">
-    <ul class="list-unstyled">
-        <li class="border-bottom border-secondary p-2">
-            <a href="{% url 'all_books' %}" class="text-decoration-none">All Books</a>
-        </li>
-        {% for c in categories %}
-            <li class="border-bottom border-secondary p-2">
-                <a href="{% url 'book_category' c.id %}" class="text-decoration-none">{{c.category}}</a>
+<div class="container bg-light">
+    <div id="sidebar" class="h-100 bg-white d-none d-md-block p-2">
+        <ul class="list-unstyled">
+            <li class="p-2 border-bottom border-secondary border-opacity-25">
+                Filters
             </li>
-        {% endfor %}
-        
-    </ul>
+            <li class="p-2 fs-6">
+                CATEGORIES
+            </li>
+            <li class="p-2 d-inline-flex gap-1">
+               <a class="btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1"><i class="fa-solid fa-sort-down"></i></a> 
+                <a href="{% url 'all_books' %}" class="p-2 text-decoration-none">All Books</a>
+            </li>
+              <div class="row">
+                <div class="col">
+                  <div class="collapse multi-collapse" id="multiCollapseExample1">
+                    <div class="p-2">
+                        {% for c in categories %}
+                        <li class="p-2">
+                            <a href="{% url 'book_category' c.id %}" class="text-decoration-none">{{c.category}}</a>
+                        </li>
+                    {% endfor %}
+                  </div>
+                </div>
+        </ul>
+    </div>
 </div>
-
 {% block extrajs %}
 <script>
     function toggle(){
