@@ -29,5 +29,7 @@ The project can be divided into following categories :
 4. Database Tables -
    4.1. User (structure given by Django)
    4.2. Category (id[pk], category )
-   4.3. Book (id[pk], category_id (fk), title, author, publisher, publication_year, description, price, image, is_available)
-   4.4.        
+   4.3. Book (id[pk], category_id (fk), title, author, publisher, publication_year, description, price, image, is_available )
+   4.4. Address (id[pk], user_id (fk), addressline_one, addressline_two, locality, landmark, city, state, zip )
+   4.5. Order (id[pk], user_id (fk), book_id (fk), address_id (fk), quantity, total_price, status )
+   4.6. Review (id[pk], user_id (fk), book_id (fk), rating, comment, created_at, is_visible )         
